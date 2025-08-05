@@ -115,7 +115,7 @@ input, select {
   border: 1px solid #aaa;
   padding: 8px;
   width: 100%;
-  aspect-ratio: 80 / 55; /* Aumenta a altura para caber o switch */
+  aspect-ratio: 80 / 55;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -137,7 +137,7 @@ input, select {
   font-size: 11px; font-weight: bold; min-height: 16px; word-wrap: break-word;
 }
 
-/* NOVO: ESTILO DO BOTÃO DA CÂMERA */
+/* ESTILO DO BOTÃO DA CÂMERA */
 #camera-btn {
   position: fixed;
   top: 15px;
@@ -162,7 +162,7 @@ input, select {
   transform: scale(1.1);
 }
 
-/* NOVO: ESTILO DO SWITCH */
+/* ESTILO DO SWITCH */
 .switch-container { display: flex; align-items: center; justify-content: space-between; }
 .switch-label { margin-bottom: 0; }
 .switch { position: relative; display: inline-block; width: 60px; height: 34px; }
@@ -180,7 +180,7 @@ input:checked + .slider:before { transform: translateX(26px); }
 .slider.round { border-radius: 34px; }
 .slider.round:before { border-radius: 50%; }
 
-/* NOVO: ESTILOS PARA SCANNER E DESCRIPTOGRAFIA */
+/* ESTILOS PARA SCANNER E DESCRIPTOGRAFIA */
 #qr-reader {
     width: 100%;
     border: 2px solid var(--border-color);
@@ -200,8 +200,33 @@ input:checked + .slider:before { transform: translateX(26px); }
 .result-ok { border-left: 5px solid #28a745; }
 .result-error { border-left: 5px solid #dc3545; }
 
+/* NOVOS ESTILOS: Para o botão de visibilidade da senha */
+.password-container {
+  position: relative;
+}
+#secret-key-input {
+  /* Adiciona espaço à direita no input para o ícone não sobrepor o texto */
+  padding-right: 45px; 
+}
+#toggle-password-btn {
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  color: #888;
+  font-size: 16px;
+}
+#toggle-password-btn:hover {
+  color: #333;
+}
+
+
 @media (max-width: 650px) {
-  body { padding: 80px 10px 15px; } /* Adiciona padding no topo para não sobrepor o botão da camera */
+  body { padding: 80px 10px 15px; } 
   .form-container { padding: 20px; }
   h1 { font-size: 24px; }
   .input-group { flex-direction: column; align-items: stretch; }

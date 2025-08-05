@@ -56,7 +56,6 @@
       <input type="text" id="signature" maxlength="64" />
     </div>
     
-    <!-- NOVO: SWITCH VENDA FIADA -->
     <div class="form-group switch-container">
         <label for="venda_fiada" class="switch-label">Venda fiada</label>
         <label class="switch">
@@ -77,7 +76,7 @@
     </div>
   </div>
 
-  <!-- NOVO: PAINEL DO SCANNER DE QR CODE -->
+  <!-- PAINEL DO SCANNER DE QR CODE -->
   <div id="scanner-overlay" class="overlay">
     <div class="modal">
         <span class="close-modal-btn" data-target="scanner-overlay">×</span>
@@ -87,14 +86,20 @@
     </div>
   </div>
 
-  <!-- NOVO: PAINEL DE DESCRIPTOGRAFIA -->
+  <!-- PAINEL DE DESCRIPTOGRAFIA -->
   <div id="decrypt-overlay" class="overlay">
     <div class="modal">
         <span class="close-modal-btn" data-target="decrypt-overlay">×</span>
         <h2>Descriptografar Recibo</h2>
         <div class="form-group">
             <label for="secret-key-input">Chave Secreta:</label>
-            <input type="password" id="secret-key-input" placeholder="Digite a senha">
+            <!-- NOVO: Container para o input e o botão de visibilidade -->
+            <div class="password-container">
+              <input type="password" id="secret-key-input" placeholder="Digite a senha">
+              <button id="toggle-password-btn" title="Mostrar/Ocultar senha">
+                <i class="fa-solid fa-eye"></i>
+              </button>
+            </div>
         </div>
         <button class="main-button" id="decrypt-btn">Verificar</button>
         <div id="decryption-result"></div>
@@ -105,9 +110,7 @@
   <!-- BIBLIOTECAS JS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
-  <!-- NOVO: Biblioteca para Criptografia AES -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
-  <!-- NOVO: Biblioteca para Scanner de QR Code -->
   <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
 
   <!-- SCRIPT PRINCIPAL -->

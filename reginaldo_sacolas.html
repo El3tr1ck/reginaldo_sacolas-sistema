@@ -4,203 +4,31 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gerador de PDF - Reginaldo Sacolas</title>
+  
+  <!-- FONTES E ESTILOS -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --primary-color: #c00;
-      --primary-color-dark: #a00;
-      --light-gray: #f4f6f8;
-      --border-color: #ccc;
-      --text-color: #333;
-    }
-    body {
-      font-family: 'Roboto', sans-serif;
-      background: var(--light-gray);
-      margin: 0;
-      padding: 20px 15px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      color: var(--text-color);
-    }
-    h1 {
-      color: var(--primary-color);
-      margin-bottom: 20px;
-      text-align: center;
-    }
-    .form-container {
-      background: white;
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      max-width: 600px;
-      width: 100%;
-      box-sizing: border-box;
-      margin-bottom: 30px;
-    }
-    .form-group {
-      margin-bottom: 20px;
-    }
-    label {
-      display: block;
-      font-weight: bold;
-      margin-bottom: 8px;
-    }
-    input, select {
-      padding: 12px;
-      border: 1px solid var(--border-color);
-      border-radius: 10px;
-      font-size: 16px;
-      font-family: 'Roboto', sans-serif;
-      width: 100%;
-      box-sizing: border-box;
-    }
-    .input-group {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-    }
-    .input-group input {
-      flex-grow: 1;
-    }
-    .input-group select {
-      flex-shrink: 0;
-      width: auto;
-    }
-    .main-button {
-      width: 100%;
-      padding: 15px 24px;
-      background-color: var(--primary-color);
-      color: white;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 16px;
-      transition: background 0.3s ease;
-    }
-    .main-button:hover {
-      background-color: var(--primary-color-dark);
-    }
-    #preview-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.7);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-      padding: 15px;
-      box-sizing: border-box;
-    }
-    .preview-modal {
-      background: white;
-      padding: 20px;
-      border-radius: 16px;
-      box-shadow: 0 5px 25px rgba(0,0,0,0.2);
-      width: 100%;
-      max-width: 500px;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      position: relative;
-    }
-    #close-modal-btn {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      font-size: 28px;
-      font-weight: bold;
-      color: #888;
-      cursor: pointer;
-      line-height: 1;
-    }
-    #close-modal-btn:hover {
-      color: #333;
-    }
-    #html-preview-container {
-      background: #fff;
-      border: 1px solid #aaa;
-      padding: 8px;
-      width: 100%;
-      aspect-ratio: 80 / 50;
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-      font-family: 'Roboto', sans-serif;
-    }
-    .preview-header {
-      text-align: center;
-      font-weight: bold;
-      color: var(--primary-color);
-      font-size: 14px;
-      padding-bottom: 4px;
-    }
-    .preview-line {
-      border: 0;
-      border-top: 1px solid var(--primary-color);
-      margin: 0;
-    }
-    .preview-content {
-      padding-top: 8px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      flex-grow: 1;
-    }
-    .preview-row {
-      display: flex;
-      gap: 10px;
-      width: 100%;
-    }
-    .preview-field {
-      display: flex;
-      flex-direction: column;
-    }
-    .full-width {
-      width: 100%;
-    }
-    .half-width {
-      width: 50%;
-    }
-    .preview-label {
-      font-size: 10px;
-      color: var(--primary-color);
-      margin-bottom: 2px;
-    }
-    .preview-value {
-      border: 1px solid #000;
-      border-radius: 3px;
-      padding: 4px 6px;
-      font-size: 11px;
-      font-weight: bold;
-      min-height: 16px;
-      word-wrap: break-word;
-    }
-    @media (max-width: 650px) {
-      body { padding: 15px 10px; }
-      .form-container { padding: 20px; }
-      h1 { font-size: 24px; }
-      .input-group { flex-direction: column; align-items: stretch; }
-    }
-  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+  <!-- BOTÃO DA CÂMERA -->
+  <button id="camera-btn" title="Escanear QR Code">
+    <i class="fa-solid fa-camera"></i>
+  </button>
+
   <h1>Reginaldo Sacolas</h1>
   <div class="form-container">
     <div class="form-group">
-      <label>Nome do mercado:</label>
+      <label for="name">Nome do mercado:</label>
       <input type="text" id="name" maxlength="64" />
     </div>
     <div class="form-group">
-      <label>Valor (Ex: 150,25):</label>
+      <label for="price">Valor (Ex: 150,25):</label>
       <input type="text" id="price" maxlength="64" />
     </div>
     <div class="form-group">
-      <label>Valor por extenso:</label>
+      <label for="price_word">Valor por extenso:</label>
       <div class="input-group">
         <input type="text" id="price_word" maxlength="128" />
         <select id="price_word_mode">
@@ -210,11 +38,11 @@
       </div>
     </div>
     <div class="form-group">
-      <label>Referente a:</label>
+      <label for="product">Referente a:</label>
       <input type="text" id="product" maxlength="64" />
     </div>
     <div class="form-group">
-      <label>Data:</label>
+      <label for="date">Data:</label>
       <div class="input-group">
         <input type="text" id="date" />
         <select id="date_mode">
@@ -224,222 +52,66 @@
       </div>
     </div>
     <div class="form-group">
-      <label>Assinatura:</label>
+      <label for="signature">Assinatura:</label>
       <input type="text" id="signature" maxlength="64" />
     </div>
-    <button class="main-button" onclick="showPreview()">Exibir Impressão</button>
+    
+    <!-- NOVO: SWITCH VENDA FIADA -->
+    <div class="form-group switch-container">
+        <label for="venda_fiada" class="switch-label">Venda fiada</label>
+        <label class="switch">
+            <input type="checkbox" id="venda_fiada">
+            <span class="slider round"></span>
+        </label>
+    </div>
+
+    <button class="main-button" id="show-preview-btn">Exibir Impressão</button>
   </div>
 
-  <div id="preview-overlay">
-    <div class="preview-modal">
-      <span id="close-modal-btn" onclick="closeModal()">×</span>
-      <div id="html-preview-container">
-        <div class="preview-header">Reginaldo Sacolas</div>
-        <hr class="preview-line" />
-        <div class="preview-content">
-          <div class="preview-row">
-            <div class="preview-field half-width">
-              <span class="preview-label">Nome do mercado:</span>
-              <div class="preview-value" id="preview-name"></div>
-            </div>
-            <div class="preview-field half-width">
-              <span class="preview-label">Valor:</span>
-              <div class="preview-value" id="preview-price"></div>
-            </div>
-          </div>
-          <div class="preview-row">
-            <div class="preview-field full-width">
-              <span class="preview-label">Valor por extenso:</span>
-              <div class="preview-value" id="preview-price_word"></div>
-            </div>
-          </div>
-          <div class="preview-row">
-            <div class="preview-field full-width">
-              <span class="preview-label">Referente a:</span>
-              <div class="preview-value" id="preview-product"></div>
-            </div>
-          </div>
-          <div class="preview-row">
-            <div class="preview-field half-width">
-              <span class="preview-label">Data:</span>
-              <div class="preview-value" id="preview-date"></div>
-            </div>
-            <div class="preview-field half-width">
-              <span class="preview-label">Assinatura:</span>
-              <div class="preview-value" id="preview-signature"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <button class="main-button" onclick="downloadPDF()">Imprimir Recibo</button>
+  <!-- MODAL DE PRÉ-VISUALIZAÇÃO -->
+  <div id="preview-overlay" class="overlay">
+    <div class="modal">
+      <span class="close-modal-btn" data-target="preview-overlay">×</span>
+      <div id="html-preview-container"></div>
+      <button class="main-button" id="download-pdf-btn">Imprimir Recibo</button>
     </div>
   </div>
 
+  <!-- NOVO: PAINEL DO SCANNER DE QR CODE -->
+  <div id="scanner-overlay" class="overlay">
+    <div class="modal">
+        <span class="close-modal-btn" data-target="scanner-overlay">×</span>
+        <h2>Aponte para o QR Code</h2>
+        <div id="qr-reader"></div>
+        <p id="scanner-status">Iniciando câmera...</p>
+    </div>
+  </div>
+
+  <!-- NOVO: PAINEL DE DESCRIPTOGRAFIA -->
+  <div id="decrypt-overlay" class="overlay">
+    <div class="modal">
+        <span class="close-modal-btn" data-target="decrypt-overlay">×</span>
+        <h2>Descriptografar Recibo</h2>
+        <div class="form-group">
+            <label for="secret-key-input">Chave Secreta:</label>
+            <input type="password" id="secret-key-input" placeholder="Digite a senha">
+        </div>
+        <button class="main-button" id="decrypt-btn">Verificar</button>
+        <div id="decryption-result"></div>
+    </div>
+  </div>
+
+
+  <!-- BIBLIOTECAS JS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script>
-    const { jsPDF } = window.jspdf;
-    let doc;
-    
-    // --- INÍCIO: LÓGICA DE VISIBILIDADE DOS INPUTS ---
-    document.addEventListener('DOMContentLoaded', () => {
-        const priceWordInput = document.getElementById('price_word');
-        const priceWordMode = document.getElementById('price_word_mode');
-        const dateInput = document.getElementById('date');
-        const dateMode = document.getElementById('date_mode');
-        const overlay = document.getElementById('preview-overlay');
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+  <!-- NOVO: Biblioteca para Criptografia AES -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
+  <!-- NOVO: Biblioteca para Scanner de QR Code -->
+  <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
 
-        function updateInputVisibility(inputElement, modeSelector) {
-            // Se o modo for 'auto', esconde o input de texto. Senão, mostra.
-            if (modeSelector.value === 'auto') {
-                inputElement.style.display = 'none';
-            } else {
-                inputElement.style.display = 'block';
-            }
-        }
+  <!-- SCRIPT PRINCIPAL -->
+  <script src="script.js"></script>
 
-        // Adiciona o evento 'change' para o seletor de "valor por extenso"
-        priceWordMode.addEventListener('change', () => updateInputVisibility(priceWordInput, priceWordMode));
-        
-        // Adiciona o evento 'change' para o seletor de "data"
-        dateMode.addEventListener('change', () => updateInputVisibility(dateInput, dateMode));
-        
-        // Permite fechar o modal clicando fora dele
-        overlay.addEventListener('click', (event) => {
-            if (event.target === overlay) closeModal();
-        });
-
-        // Garante o estado correto da visibilidade no carregamento inicial da página
-        updateInputVisibility(priceWordInput, priceWordMode);
-        updateInputVisibility(dateInput, dateMode);
-    });
-    // --- FIM: LÓGICA DE VISIBILIDADE DOS INPUTS ---
-    
-    function closeModal() {
-      document.getElementById('preview-overlay').style.display = 'none';
-    }
-
-    function numeroParaExtenso(numero) {
-        if (numero === null || isNaN(numero)) return "";
-        const valor = parseFloat(numero).toFixed(2).split('.'), inteiros = valor[0], centavos = valor[1];
-        const unidades = ["", "um", "dois", "três", "quatro", "cinco", "seis", "sete", "oito", "nove"], dezenas = ["", "dez", "vinte", "trinta", "quarenta", "cinquenta", "sessenta", "setenta", "oitenta", "noventa"], dezenasEspeciais = ["dez", "onze", "doze", "treze", "quatorze", "quinze", "dezesseis", "dezessete", "dezoito", "dezenove"], centenas = ["", "cento", "duzentos", "trezentos", "quatrocentos", "quinhentos", "seiscentos", "setecentos", "oitocentos", "novecentos"];
-        function porExtenso(n) {
-            if (n < 10) return unidades[n];
-            if (n < 20) return dezenasEspeciais[n - 10];
-            if (n < 100) return dezenas[Math.floor(n / 10)] + (n % 10 !== 0 ? " e " + unidades[n % 10] : "");
-            if (n === 100) return "cem";
-            if (n < 1000) return centenas[Math.floor(n / 100)] + (n % 100 !== 0 ? " e " + porExtenso(n % 100) : "");
-            if (n === 1000) return "mil";
-            if (n < 1000000) return (Math.floor(n / 1000) > 1 ? porExtenso(Math.floor(n / 1000)) + " mil" : "mil") + (n % 1000 !== 0 ? " e " + porExtenso(n % 1000) : "");
-            return "";
-        }
-        let resultado = [];
-        if (inteiros > 0) resultado.push(porExtenso(parseInt(inteiros)), parseInt(inteiros) === 1 ? "real" : "reais");
-        if (centavos > 0) {
-            if (inteiros > 0) resultado.push("e");
-            resultado.push(porExtenso(parseInt(centavos)), parseInt(centavos) === 1 ? "centavo" : "centavos");
-        }
-        return resultado.length > 0 ? resultado.join(" ") : "zero reais";
-    }
-
-    function getFormData() {
-        const name = document.getElementById("name").value;
-        const price = document.getElementById("price").value;
-        const product = document.getElementById("product").value;
-        const signature = document.getElementById("signature").value;
-        let price_word;
-        if (document.getElementById('price_word_mode').value === 'auto') {
-            const priceNumeric = parseFloat(price.replace('R$', '').replace(/\./g, '').replace(',', '.').trim());
-            price_word = !isNaN(priceNumeric) ? numeroParaExtenso(priceNumeric) : 'Valor inválido';
-        } else { price_word = document.getElementById("price_word").value; }
-        let date;
-        if (document.getElementById('date_mode').value === 'auto') {
-            const now = new Date(), day = String(now.getDate()).padStart(2, '0'), month = String(now.getMonth() + 1).padStart(2, '0'), year = String(now.getFullYear()).slice(-2);
-            date = `${day}/${month}/${year}`;
-        } else { date = document.getElementById("date").value; }
-        return { name, price, price_word, product, date, signature };
-    }
-
-    function showPreview() {
-        const data = getFormData();
-        document.getElementById('preview-name').textContent = data.name || ' ';
-        document.getElementById('preview-price').textContent = data.price || ' ';
-        document.getElementById('preview-price_word').textContent = data.price_word || ' ';
-        document.getElementById('preview-product').textContent = data.product || ' ';
-        document.getElementById('preview-date').textContent = data.date || ' ';
-        document.getElementById('preview-signature').textContent = data.signature || ' ';
-        document.getElementById('preview-overlay').style.display = 'flex';
-    }
-
-    function downloadPDF() {
-        generateFinalPDF();
-        if (doc) {
-            doc.save("reginaldo_sacolas.pdf");
-        } else {
-            alert("Ocorreu um erro ao gerar o PDF.");
-        }
-    }
-
-    function generateFinalPDF() {
-        const data = getFormData();
-        const BASE_LINE_HEIGHT = 3.0, BASE_FONT_SIZE = 6.5, MIN_FONT_SIZE = 4.0, BASE_ROW_MARGIN = 2.0;
-        const jsPDFDoc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: [80, 50] });
-        function calculateIdealBlockHeight(d, text, width) {
-            const marginBetweenBoxes = 0.5, spaceBetweenLabelAndBox = 2.0, boxContentHeight = BASE_LINE_HEIGHT + 2;
-            let lines = [], currentLine = '', words = String(text || '').split(' ');
-            d.setFont('helvetica', 'bold'); d.setFontSize(BASE_FONT_SIZE);
-            for (let word of words) {
-                let testLine = currentLine + word + ' ';
-                if (d.getTextWidth(testLine) > width && currentLine) { lines.push(currentLine.trim()); currentLine = word + ' '; } 
-                else { currentLine = testLine; }
-            }
-            if (currentLine) lines.push(currentLine.trim());
-            if (lines.length === 0) lines.push(' ');
-            return 3.0 + spaceBetweenLabelAndBox + (lines.length * boxContentHeight) + Math.max(0, lines.length - 1) * marginBetweenBoxes;
-        }
-        function drawWrappedBoxedText(d, label, value, x, y, width, p) {
-            const marginBetweenBoxes = 0.5 * p.scale, spaceBetweenLabelAndBox = 2.0 * p.scale;
-            d.setFontSize(p.labelFontSize); d.setTextColor(200, 0, 0); d.setFont('helvetica', 'normal'); d.text(label, x, y);
-            let currentBoxY = y + spaceBetweenLabelAndBox;
-            d.setTextColor(0); d.setFont('helvetica', 'bold');
-            let lines = [], currentLine = '', words = String(value || '').split(' ');
-            d.setFontSize(p.fontSize); 
-            for (let word of words) {
-                let testLine = currentLine + word + ' ';
-                if (d.getTextWidth(testLine) > width && currentLine) { lines.push(currentLine.trim()); currentLine = word + ' '; } 
-                else { currentLine = testLine; }
-            }
-            if (currentLine) lines.push(currentLine.trim());
-            if (lines.length === 0) lines.push(' ');
-            let totalBlockHeight = 0;
-            for (let i = 0; i < lines.length; i++) {
-                const boxHeight = p.lineHeight + 2;
-                d.roundedRect(x - 1, currentBoxY, width + 2, boxHeight, 1.2, 1.2);
-                d.text(lines[i], x + 1, currentBoxY + (boxHeight / 2), { align: 'left', baseline: 'middle' });
-                currentBoxY += boxHeight + marginBetweenBoxes;
-                totalBlockHeight += boxHeight + (i < lines.length - 1 ? marginBetweenBoxes : 0);
-            }
-            return y + spaceBetweenLabelAndBox + totalBlockHeight;
-        }
-        jsPDFDoc.setFont("helvetica", "bold"); jsPDFDoc.setTextColor(200, 0, 0); jsPDFDoc.setFontSize(9);
-        jsPDFDoc.text("Reginaldo Sacolas", 40, 6, { align: "center" }); jsPDFDoc.setDrawColor(200, 0, 0); jsPDFDoc.line(5, 8, 75, 8);
-        const y_start = 10, page_end = 49, availableHeight = page_end - y_start, leftX = 7, rightX = 42, maxBoxWidth = 30, fullWidth = 66;
-        const h1 = Math.max(calculateIdealBlockHeight(jsPDFDoc, data.name, maxBoxWidth), calculateIdealBlockHeight(jsPDFDoc, data.price, maxBoxWidth)),
-              h2 = calculateIdealBlockHeight(jsPDFDoc, data.price_word, fullWidth), h3 = calculateIdealBlockHeight(jsPDFDoc, data.product, fullWidth),
-              h4 = Math.max(calculateIdealBlockHeight(jsPDFDoc, data.date, maxBoxWidth), calculateIdealBlockHeight(jsPDFDoc, data.signature, maxBoxWidth));
-        const requiredHeight = (h1 + h2 + h3 + h4) + (3 * BASE_ROW_MARGIN);
-        let scaleFactor = availableHeight / requiredHeight;
-        if (scaleFactor > 1) scaleFactor = 1;
-        const p = { scale: scaleFactor, lineHeight: BASE_LINE_HEIGHT * scaleFactor, fontSize: Math.max(MIN_FONT_SIZE, BASE_FONT_SIZE * scaleFactor), labelFontSize: Math.max(MIN_FONT_SIZE, (BASE_FONT_SIZE - 1) * scaleFactor), rowMargin: BASE_ROW_MARGIN * scaleFactor };
-        let y = y_start;
-        let y_end_left = drawWrappedBoxedText(jsPDFDoc, "Nome do mercado:", data.name, leftX, y, maxBoxWidth, p);
-        let y_end_right = drawWrappedBoxedText(jsPDFDoc, "Valor:", data.price, rightX, y, maxBoxWidth, p);
-        y = Math.max(y_end_left, y_end_right) + p.rowMargin;
-        y = drawWrappedBoxedText(jsPDFDoc, "Valor por extenso:", data.price_word, leftX, y, fullWidth, p) + p.rowMargin;
-        y = drawWrappedBoxedText(jsPDFDoc, "Referente a:", data.product, leftX, y, fullWidth, p) + p.rowMargin;
-        drawWrappedBoxedText(jsPDFDoc, "Data:", data.date, leftX, y, maxBoxWidth, p);
-        drawWrappedBoxedText(jsPDFDoc, "Assinatura:", data.signature, rightX, y, maxBoxWidth, p);
-        doc = jsPDFDoc;
-    }
-  </script>
 </body>
 </html>

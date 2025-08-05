@@ -1,0 +1,208 @@
+:root {
+  --primary-color: #c00;
+  --primary-color-dark: #a00;
+  --light-gray: #f4f6f8;
+  --border-color: #ccc;
+  --text-color: #333;
+}
+body {
+  font-family: 'Roboto', sans-serif;
+  background: var(--light-gray);
+  margin: 0;
+  padding: 20px 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--text-color);
+}
+h1, h2 {
+  color: var(--primary-color);
+  margin-bottom: 20px;
+  text-align: center;
+}
+.form-container {
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  max-width: 600px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 30px;
+}
+.form-group {
+  margin-bottom: 20px;
+}
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+input, select {
+  padding: 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  font-size: 16px;
+  font-family: 'Roboto', sans-serif;
+  width: 100%;
+  box-sizing: border-box;
+}
+.input-group {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.input-group input { flex-grow: 1; }
+.input-group select { flex-shrink: 0; width: auto; }
+.main-button {
+  width: 100%;
+  padding: 15px 24px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  transition: background 0.3s ease;
+}
+.main-button:hover {
+  background-color: var(--primary-color-dark);
+}
+
+/* ESTILOS PARA MODAIS E OVERLAYS */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 15px;
+  box-sizing: border-box;
+}
+.modal {
+  background: white;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  position: relative;
+}
+.close-modal-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #888;
+  cursor: pointer;
+  line-height: 1;
+}
+.close-modal-btn:hover { color: #333; }
+
+/* ESTILOS DA PRÉ-VISUALIZAÇÃO */
+#html-preview-container {
+  background: #fff;
+  border: 1px solid #aaa;
+  padding: 8px;
+  width: 100%;
+  aspect-ratio: 80 / 55; /* Aumenta a altura para caber o switch */
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Roboto', sans-serif;
+}
+.preview-header {
+  text-align: center; font-weight: bold; color: var(--primary-color);
+  font-size: 14px; padding-bottom: 4px;
+}
+.preview-line { border: 0; border-top: 1px solid var(--primary-color); margin: 0; }
+.preview-content { padding-top: 8px; display: flex; flex-direction: column; gap: 6px; flex-grow: 1; }
+.preview-row { display: flex; gap: 10px; width: 100%; }
+.preview-field { display: flex; flex-direction: column; }
+.full-width { width: 100%; }
+.half-width { width: 50%; }
+.preview-label { font-size: 10px; color: var(--primary-color); margin-bottom: 2px; }
+.preview-value {
+  border: 1px solid #000; border-radius: 3px; padding: 4px 6px;
+  font-size: 11px; font-weight: bold; min-height: 16px; word-wrap: break-word;
+}
+
+/* NOVO: ESTILO DO BOTÃO DA CÂMERA */
+#camera-btn {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  z-index: 999;
+  transition: all 0.3s ease;
+}
+#camera-btn:hover {
+  background-color: var(--primary-color-dark);
+  transform: scale(1.1);
+}
+
+/* NOVO: ESTILO DO SWITCH */
+.switch-container { display: flex; align-items: center; justify-content: space-between; }
+.switch-label { margin-bottom: 0; }
+.switch { position: relative; display: inline-block; width: 60px; height: 34px; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider {
+  position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #ccc; transition: .4s;
+}
+.slider:before {
+  position: absolute; content: ""; height: 26px; width: 26px; left: 4px;
+  bottom: 4px; background-color: white; transition: .4s;
+}
+input:checked + .slider { background-color: var(--primary-color); }
+input:checked + .slider:before { transform: translateX(26px); }
+.slider.round { border-radius: 34px; }
+.slider.round:before { border-radius: 50%; }
+
+/* NOVO: ESTILOS PARA SCANNER E DESCRIPTOGRAFIA */
+#qr-reader {
+    width: 100%;
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    overflow: hidden;
+}
+#decryption-result {
+    margin-top: 15px;
+    padding: 15px;
+    background-color: var(--light-gray);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    font-size: 14px;
+    line-height: 1.6;
+    word-break: break-all;
+}
+.result-ok { border-left: 5px solid #28a745; }
+.result-error { border-left: 5px solid #dc3545; }
+
+@media (max-width: 650px) {
+  body { padding: 80px 10px 15px; } /* Adiciona padding no topo para não sobrepor o botão da camera */
+  .form-container { padding: 20px; }
+  h1 { font-size: 24px; }
+  .input-group { flex-direction: column; align-items: stretch; }
+}
